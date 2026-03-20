@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rigor Cover — AI Cover Letter Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- SEO & Social -->
+  <meta name="description" content="Generate a personalized, compelling cover letter from your resume and job description in under 60 seconds." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rigor.design/cover" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rigor.design/cover" />
+  <meta property="og:title" content="Rigor Cover — AI Cover Letter Generator" />
+  <meta property="og:description" content="Generate a personalized, compelling cover letter from your resume and job description in under 60 seconds." />
+  <meta property="og:image" content="https://rigor.design/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rigor Cover — AI Cover Letter Generator" />
+  <meta name="twitter:description" content="Generate a personalized, compelling cover letter from your resume and job description in under 60 seconds." />
+  <meta name="twitter:image" content="https://rigor.design/og-image.png" />
+
+  <!-- Theme color -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1E3A5F" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav class="nav" aria-label="Main navigation">
+    <a href="/" class="nav-brand">rigor<span>.</span>design</a>
+    <div class="nav-links">
+      <a href="#" id="nav-login" class="nav-link">Sign In</a>
+      <a href="#" id="nav-signup" class="btn-nav">Get Started</a>
+    </div>
+  </nav>
+
+  <div class="modal-overlay hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close dialog">&times;</button>
+      <div class="modal-tabs">
+        <button class="tab-btn active" data-tab="login">Sign In</button>
+        <button class="tab-btn" data-tab="signup">Sign Up</button>
+      </div>
+      <div class="tab-content" id="tab-login">
+        <input type="email" class="input" id="login-email" placeholder="Email" />
+        <input type="password" class="input" id="login-password" placeholder="Password" />
+        <button class="btn-primary full" id="btn-login" aria-label="Sign in to your account">Sign In</button>
+      </div>
+      <div class="tab-content hidden" id="tab-signup">
+        <input type="text" class="input" id="signup-name" placeholder="Full Name" />
+        <input type="email" class="input" id="signup-email" placeholder="Email" />
+        <input type="password" class="input" id="signup-password" placeholder="Password" />
+        <button class="btn-primary full" id="btn-signup" aria-label="Create a new account">Create Account</button>
+      </div>
+      <p class="auth-error hidden" id="auth-error"></p>
+    </div>
+  </div>
+
+  <section class="hero" id="main-content">
+    <div class="hero-badge">AI Cover Letter Generator</div>
+    <h1 class="hero-title">Write a Cover Letter<br /><em>That Gets Responses</em></h1>
+    <p class="hero-sub">Paste your resume and job description. Get a personalized, compelling cover letter in under 60 seconds.</p>
+  </section>
+
+  <section class="tool-section" aria-label="Main tool"><div id="usage-meter-container"></div>
+    <div class="tool-container">
+      <div class="two-col">
+        <div class="tool-panel">
+          <div class="panel-header"><span class="panel-num">01</span><h2>Your Resume</h2></div>
+          <textarea class="input textarea tall" id="resume-text" placeholder="Paste your resume here..."></textarea>
+        </div>
+        <div class="tool-panel">
+          <div class="panel-header"><span class="panel-num">02</span><h2>Job Description</h2></div>
+          <textarea class="input textarea tall" id="job-desc" placeholder="Paste the job description..."></textarea>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <div class="panel-header"><span class="panel-num">03</span><h2>Customize Tone</h2></div>
+        <div class="tone-grid">
+          <label class="tone-option"><input type="radio" name="tone" value="professional" checked /><span>Professional</span></label>
+          <label class="tone-option"><input type="radio" name="tone" value="enthusiastic" /><span>Enthusiastic</span></label>
+          <label class="tone-option"><input type="radio" name="tone" value="creative" /><span>Creative</span></label>
+          <label class="tone-option"><input type="radio" name="tone" value="concise" /><span>Concise</span></label>
+        </div>
+        <input type="text" class="u-rigor_cover-1 input" id="company-name" placeholder="Company name (optional)" />
+        <input type="text" class="u-rigor_cover-2 input" id="hiring-manager" placeholder="Hiring manager name (optional)" />
+      </div>
+
+      <div class="tool-actions">
+        <button class="btn-primary large" id="btn-generate" aria-label="Generate content">
+          <span class="btn-text">Generate Cover Letter</span>
+          <span class="btn-loader hidden">Writing...</span>
+        </button>
+      </div>
+
+      <div class="result-panel hidden" id="result-panel">
+        <div class="result-toolbar">
+          <h3>Your Cover Letter</h3>
+          <div class="toolbar-actions">
+            <button class="btn-icon" id="btn-copy" aria-label="Copy to clipboard" title="Copy">📋 Copy</button>
+            <button class="btn-icon" id="btn-save" aria-label="Save result" title="Save">💾 Save</button>
+            <button class="btn-icon" id="btn-regenerate" title="Regenerate">🔄 Regenerate</button>
+          </div>
+        </div>
+        <div class="cover-letter-output" id="cover-letter-output" contenteditable="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="history-section hidden" id="history-section">
+    <div class="section-header"><h2>Saved Cover Letters</h2></div>
+    <div class="history-grid" id="history-grid"></div>
+  </section>
+
+  <footer class="footer"><p>© 2025 rigor.design</p></footer>
+  <script type="module" src="js/app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
