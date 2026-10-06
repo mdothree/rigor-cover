@@ -5,6 +5,7 @@
   <title>Rigor Cover — AI Cover Letter Generator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a4fa3'/><text x='16' y='23' font-family='serif' font-weight='700' font-size='14' fill='white'>C</text></svg>">
   <link rel="stylesheet" href="css/styles.css" />
   <!-- SEO & Social -->
   <meta name="description" content="Generate a personalized, compelling cover letter from your resume and job description in under 60 seconds." />
@@ -16,13 +17,16 @@
   <meta property="og:url" content="https://rigor.design/cover" />
   <meta property="og:title" content="Rigor Cover — AI Cover Letter Generator" />
   <meta property="og:description" content="Generate a personalized, compelling cover letter from your resume and job description in under 60 seconds." />
-  <meta property="og:image" content="https://rigor.design/og-image.png" />
+  <meta property="og:image" content="./og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Rigor Cover — AI Cover Letter Generator" />
   <meta name="twitter:description" content="Generate a personalized, compelling cover letter from your resume and job description in under 60 seconds." />
-  <meta name="twitter:image" content="https://rigor.design/og-image.png" />
+  <meta name="twitter:image" content="./og-image.jpg" />
 
   <!-- Theme color -->
   <link rel="manifest" href="/manifest.json" />
@@ -38,7 +42,7 @@
     </div>
   </nav>
 
-  <div class="modal-overlay hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+  <div class="modal-overlay hidden" id="auth-modal" role="dialog" aria-modal="true" aria-label="Sign in or create an account">
     <div class="modal">
       <button class="modal-close" id="modal-close" aria-label="Close dialog">&times;</button>
       <div class="modal-tabs">
@@ -71,11 +75,13 @@
       <div class="two-col">
         <div class="tool-panel">
           <div class="panel-header"><span class="panel-num">01</span><h2>Your Resume</h2></div>
-          <textarea class="input textarea tall" id="resume-text" placeholder="Paste your resume here..."></textarea>
+          <textarea class="input textarea tall" id="resume-text" placeholder="Paste your resume here..." aria-describedby="resume-count"></textarea>
+          <p class="input-note" id="resume-count" aria-live="polite"></p>
         </div>
         <div class="tool-panel">
           <div class="panel-header"><span class="panel-num">02</span><h2>Job Description</h2></div>
-          <textarea class="input textarea tall" id="job-desc" placeholder="Paste the job description..."></textarea>
+          <textarea class="input textarea tall" id="job-desc" placeholder="Paste the job description..." aria-describedby="jd-count"></textarea>
+          <p class="input-note" id="jd-count" aria-live="polite"></p>
         </div>
       </div>
 
@@ -107,6 +113,7 @@
             <button class="btn-icon" id="btn-regenerate" title="Regenerate">🔄 Regenerate</button>
           </div>
         </div>
+        <p class="result-note hidden" id="placeholder-note" role="status"></p>
         <div class="cover-letter-output" id="cover-letter-output" contenteditable="true"></div>
       </div>
     </div>
@@ -117,15 +124,17 @@
     <div class="history-grid" id="history-grid"></div>
   </section>
 
-  <footer class="footer"><p>© 2025 rigor.design</p></footer>
-  <script type="module" src="js/app.js"></script>
+  <footer class="footer">
+    <nav class="footer-tools" aria-label="Other rigor.design tools"><a href="https://rigor.design">All tools</a> <a href="https://resume.rigor.design">Resume Analyzer</a> <a href="https://linkedin.rigor.design">LinkedIn Optimizer</a> <a href="https://interview.rigor.design">Interview Coach</a> <a href="https://networking.rigor.design">Networking Emails</a> <a href="https://portfolio.rigor.design">Portfolio Review</a> <a href="https://salary.rigor.design">Salary Negotiation</a></nav>
+    <p>© 2025 rigor.design</p>
+  </footer>
+  <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(() => {});
-      });
-    }
-  </script>
+    <script src="js/app.js" type="module"></script>
+
+  <!-- Service worker registration lives in js/app.js (inline scripts are blocked by the CSP) -->
 </body>
 </html>
