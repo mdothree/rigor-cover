@@ -1,5 +1,6 @@
 import { apiFetch } from "./config/env.js";
 import { toast } from "./utils/toast.js";
+import { validators, guardSubmit } from "./utils/validate.js";
 import { authService } from "./services/authService.js";
 import { saveDoc, getUserDocs, tsToString } from "./services/firestoreService.js";
 import {
@@ -90,8 +91,11 @@ async function generate() {
   const company = document.getElementById("company-name").value.trim();
   const manager = document.getElementById("hiring-manager").value.trim();
 
-  if (!resume) { resumeInput.focus(); return toast.warning("Please paste your resume."); }
-  if (!jd) { jdInput.focus(); return toast.warning("Please paste the job description."); }
+  // Inline + toast message on empty/too-short input (RIGOR-EMPTY-INPUT-VALIDATION).
+  if (!guardSubmit([
+    { id: "resume-text", rules: [validators.required, validators.minWords(30)], label: "Resume" },
+    { id: "job-desc", rules: [validators.required, validators.minWords(10)], label: "Job description" }
+  ], toast)) return;
 
   // /api/cover-letter requires a signed-in user (requireAuth); say so up front.
   if (!currentUser) {
