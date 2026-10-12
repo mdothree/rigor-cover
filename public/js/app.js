@@ -99,7 +99,7 @@ async function generate() {
 
   // /api/cover-letter requires a signed-in user (requireAuth); say so up front.
   if (!currentUser) {
-    toast.info("Sign in or create a free account to generate a cover letter.");
+    toast.info("Sign in or create an account to generate a cover letter.");
     openAuthModal("login");
     return;
   }
