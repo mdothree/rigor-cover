@@ -1,4 +1,5 @@
 import { apiFetch } from "./config/env.js";
+import { initPaywall, requirePro, renderUsageMeter } from "./services/paywallUI.js";
 import { toast } from "./utils/toast.js";
 import { validators, guardSubmit } from "./utils/validate.js";
 import { authService } from "./services/authService.js";
@@ -30,6 +31,10 @@ authService.onAuthChanged(user => {
   const history = document.getElementById("history-section");
   if (user) { history.classList.remove("hidden"); loadHistory(); }
   else history.classList.add("hidden");
+  // #94: subscription state for the paywall (pricing modal + usage meter).
+  initPaywall(user ? user.uid : null)
+    .then(() => { if (user) return renderUsageMeter("usage-meter-container", "analyses"); })
+    .catch(() => {});
 });
 
 // Auth modal + nav wiring (shared helpers)
@@ -104,6 +109,8 @@ async function generate() {
     return;
   }
 
+  // #94: paid from first use (opens the pricing modal when not subscribed).
+  if (!(await requirePro("analyses"))) return;
   clearToolError();
   setBusy(true);
   try {
