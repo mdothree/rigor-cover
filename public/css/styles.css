@@ -990,3 +990,6 @@ body {
 .footer-legal a { color: var(--navy); text-decoration: underline; text-underline-offset: 2px; }
 @media (prefers-color-scheme: dark) { .footer-legal a { color: var(--gold); } }
 @media (max-width: 768px) { .footer-legal { row-gap: 0; } .footer-legal a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; } }
+
+/* No italics (Principal 10-16): emphasis by colour or weight. */
+em, i, cite, q, dfn, var, address { font-style: normal; }
