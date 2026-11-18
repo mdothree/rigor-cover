@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cover.rigor.design/sitemap.xml
+Sitemap: https://cover.rigorcareer.com/sitemap.xml
